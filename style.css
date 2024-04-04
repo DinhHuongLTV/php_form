@@ -1,0 +1,10 @@
+.text-danger {
+    color: red;
+    font-size: 90%;
+    font-style: italic;
+}
+
+label {
+    display: inline-block;
+    width: 100px;
+}

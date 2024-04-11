@@ -2,7 +2,7 @@
 session_start();
 require_once 'connection.php';
 require_once 'functions.php';
-require_once 'database.php';
+// require_once 'database.php';
 
 
 $action = 'login';

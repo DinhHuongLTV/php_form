@@ -1,8 +1,5 @@
 <?php
-if (!isset($_SESSION['user'])) {
-    header('Location: index.php?action=login');
-    exit();
-}
+checkUser(false);
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,7 +1,6 @@
 <?php
-session_start();
-if (isset($_SESSION['user'])) {
-    unset($_SESSION['user']);
-    header('Location: index.php?action=login');
-    exit();
-}
+// session_start();
+delCookie('user');
+unset($_SESSION['user']);
+header('Location: index.php?action=login');
+exit();

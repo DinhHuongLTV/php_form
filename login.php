@@ -1,11 +1,11 @@
 <?php 
 $page_title = 'Đăng nhập';
 $errors = [];
-if (isset($_SESSION['user'])) {
-    header('Location: index.php?action=home');
-    exit();
-}
+checkUser();
 if (isset($_POST['submit'])) {
+    // echo '<pre>';
+    // print_r($_POST);
+    // echo '</pre>';
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
     if (empty($password)) {
         $errors['password']['required'] = 'Không được để trống Mật khẩu';
     } else {
-        if (empty($errors['username']['notfound'])) {
+        if (empty($errors['username'])) {
             $sql = 'SELECT * from users where password = :password';
             $data = [
                 ':password' => $password
@@ -44,6 +44,10 @@ if (isset($_POST['submit'])) {
     if (empty($errors)) {
         $_SESSION['success'] = 'Đăng nhập thành công';
         $_SESSION['user'] = $username;
+        if (isset($_POST['save_info'])) {
+            $cookie_data = ['user' => $username, 'password' => $password];
+            saveCookie($cookie_data, 15);
+        }
         header('Location: index.php?action=home');
         exit();
     }
@@ -77,6 +81,10 @@ if (isset($_POST['submit'])) {
                 <?php 
                     form_validate('<span class="text-danger">', '</span> </br>', $errors, 'password');
                 ?>  
+            </div>
+            <div class="form-group">
+                <label for="">Lưu đăng nhập</label>
+                <input type="checkbox" name="save_info" id="">
             </div>
             <button class="btn btn-primary" type="submit" name="submit" value="submited">Submit</button>
             <a href="index.php?action=register">Đăng ký mới</a>
